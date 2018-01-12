@@ -451,6 +451,9 @@ class LinkamStage(object):
                          for key, enum in statusMap.iteritems()}
             status['connected'] = True
             status['time'] = tNow
+            if (status['mainFill'] is not 0.0 ):
+                self.lastMainFill = tNow
+            status['timeSinceMainFill'] = tNow - self.lastMainFill 
             self.statusDict = status
 
 
