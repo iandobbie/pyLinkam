@@ -435,7 +435,9 @@ class LinkamStage(object):
         tLastStatus = 0
         # Status update period
         tStatusUpdatePeriod = 1
-
+        #init last main fill as now as there is not much else we can do
+        self.lastMainFill = time.time()
+        
         while self._run_flag:
             time.sleep(sleepBetweenIterations)
             tNow = time.time()
@@ -451,7 +453,7 @@ class LinkamStage(object):
                          for key, enum in statusMap.iteritems()}
             status['connected'] = True
             status['time'] = tNow
-            if (status['mainFill'] is not 0.0 ):
+            if (int(status['sampleFill']) is not 0 ):
                 self.lastMainFill = tNow
             status['timeSinceMainFill'] = tNow - self.lastMainFill 
             self.statusDict = status
